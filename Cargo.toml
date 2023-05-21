@@ -1,0 +1,15 @@
+[package]
+name = "image_writer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cairo-rs = { git = "https://github.com/gtk-rs/gtk-rs-core.git", package = "cairo-rs", features = ["pdf", "png", "svg", "ps"] }
+pango = { git = "https://github.com/gtk-rs/gtk-rs-core.git", package = "pango", features = ["v1_44", "v1_50"] }
+pangocairo = { git = "https://github.com/gtk-rs/gtk-rs-core.git", package = "pangocairo" }
+lopdf = "0.31.0"
+image = {version = "0.24.6", features = ["avif-encoder", "webp-encoder"]}
+oxipng = "8.0.0"
+pyo3 = "0.18.3"
