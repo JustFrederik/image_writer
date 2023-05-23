@@ -143,7 +143,7 @@ impl Styling {
             fd.set_variant(font.variant.to_pango());
             fd.set_weight(font.weight.to_pango());
             fd.set_style(font.style.to_pango());
-            fd.set_size(12);
+            fd.set_size(12*SCALE);
             layout.set_font_description(Some(&fd));
         }
 
@@ -215,8 +215,12 @@ impl FontStyle {
 }
 
 impl Text {
-    fn set_font_size(&self, context: &Context) {
-        context.set_font_size(self.font_size);
+    fn set_font_size(&self, context: &Context, layout: &Layout) {
+        if let Some(font) = layout.font_description() {
+            let mut font = font;
+            font.set_size(self.font_size as i32 * SCALE);
+            layout.set_font_description(Some(&font));
+        }
         context.set_source_rgb(self.font_color.r, self.font_color.g, self.font_color.b);
     }
     fn set(&self, layout: &Layout, context: &Context, vertical: bool) {
@@ -458,8 +462,8 @@ impl Data {
             let align = item.align.as_ref().unwrap_or(&self.global_align);
             item.set(&layout1, &painter.context3, vertical);
             item.set(&layout2, &painter.context4, vertical);
-            item.set_font_size(&painter.context3);
-            item.set_font_size(&painter.context4);
+            item.set_font_size(&painter.context3, &layout1);
+            item.set_font_size(&painter.context4, &layout2);
             item.align(&layout1, &painter.context3, vertical, align);
             item.set_stroke(&layout1, &painter.context3)?;
             item.align(&layout2, &painter.context4, vertical, align);
