@@ -143,7 +143,7 @@ impl Styling {
             fd.set_variant(font.variant.to_pango());
             fd.set_weight(font.weight.to_pango());
             fd.set_style(font.style.to_pango());
-            fd.set_size(12*SCALE);
+            fd.set_size(12 * SCALE);
             layout.set_font_description(Some(&fd));
         }
 

@@ -32,8 +32,8 @@ pub fn merge_pdf<T: Read>(items: Vec<T>, filename: PathBuf) -> Result<(), MergeE
         max_id = doc.max_id + 1;
         let iter = doc
             .get_pages()
-            .into_iter()
-            .map(|(_, object_id)| {
+            .into_values()
+            .map(|object_id| {
                 if !first {
                     let bookmark =
                         Bookmark::new(format!("Page_{}", pagenum), [0.0, 0.0, 1.0], 0, object_id);
@@ -142,8 +142,8 @@ pub fn merge_pdf<T: Read>(items: Vec<T>, filename: PathBuf) -> Result<(), MergeE
         dictionary.set(
             "Kids",
             documents_pages
-                .into_iter()
-                .map(|(object_id, _)| Object::Reference(object_id))
+                .into_keys()
+                .map(Object::Reference)
                 .collect::<Vec<_>>(),
         );
 
