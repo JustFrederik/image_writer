@@ -10,7 +10,7 @@ fn convert_bytes_to_image(bytes: &[u8]) -> ImageResult<DynamicImage> {
     image::load_from_memory(bytes)
 }
 
-fn export_image<W: Write + Seek>(
+pub fn export_image<W: Write + Seek>(
     writer: &mut W,
     image: DynamicImage,
     format: ImageOutputFormat,
@@ -18,14 +18,14 @@ fn export_image<W: Write + Seek>(
     image.write_to(writer, format)
 }
 
-enum OutputError {
+pub enum OutputError {
     Custom(String),
     Io(std::io::Error),
     ImageError(image::ImageError),
     CompressionError(PngError),
 }
 
-fn output(
+pub fn output(
     output_format: OutputMode,
     filename: PathBuf,
     f: Painter,

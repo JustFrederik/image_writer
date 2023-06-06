@@ -11,10 +11,10 @@ mod testing {
         ReadDirection, Rgb, Rgba, Size2, Styling, Text, VerticalAlignment, Wrap,
     };
     use std::fs::File;
+    use crate::save::{output, OutputError};
 
     #[test]
     fn test1() {
-        let now = std::time::Instant::now();
         let text = Text {
             mode: Mode::Text,
             value: "GHello world".to_string(),
@@ -58,7 +58,26 @@ mod testing {
         };
         let painter = data.painter(OutputMode::Svg, 1518., 2150.).unwrap();
         let mut file = File::create("test.svg").unwrap();
-        painter.export(&mut file).unwrap();
-        println!("Time: {:?}", now.elapsed());
+        match output(OutputMode::Pdf(false), "".into(), painter){
+            Ok(v) => {
+                //TODO: add to output
+            }
+            Err(e) => {
+                match e {
+                    OutputError::Custom(v) => {
+                        println!("Error: {}", v);
+                    }
+                    OutputError::Io(e) => {
+                        println!("Io Error: {}", e);
+                    }
+                    OutputError::ImageError(e) => {
+                        println!("Image Error: {}", e);
+                    }
+                    OutputError::CompressionError(e) => {
+                        println!("Compression Error: {}", e);
+                    }
+                }
+            }
+        }
     }
 }
