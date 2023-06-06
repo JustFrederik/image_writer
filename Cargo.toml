@@ -12,4 +12,3 @@ pangocairo = { git = "https://github.com/gtk-rs/gtk-rs-core.git", package = "pan
 lopdf = "0.31.0"
 image = {version = "0.24.6", features = ["avif-encoder", "webp-encoder"]}
 oxipng = "8.0.0"
-pyo3 = "0.18.3"
