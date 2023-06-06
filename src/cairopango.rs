@@ -277,7 +277,7 @@ impl Text {
 
 impl Painter {
     fn new(
-        output_mode: OutputMode,
+        output_mode: &OutputMode,
         image: &Option<Vec<u8>>,
         width: f64,
         height: f64,
@@ -291,7 +291,7 @@ impl Painter {
             .map(|surface| surface.expect("Failed to load image"));
         let img_some = image_surface.is_some();
 
-        let surface = Painter::new_surface(&output_mode, image_surface.clone(), width, height)?;
+        let surface = Painter::new_surface(output_mode, image_surface.clone(), width, height)?;
         let context = Painter::new_context(&surface)?;
 
         let context2 = Painter::new_context(&surface)?;
@@ -299,7 +299,7 @@ impl Painter {
         let context3 = Painter::new_context(&surface)?;
         let context4 = Painter::new_context(&surface)?;
 
-        if (OutputMode::Png(true) != output_mode || OutputMode::Png(false) != output_mode)
+        if (&OutputMode::Png(true) != output_mode || &OutputMode::Png(false) != output_mode)
             && img_some
         {
             context.set_source_surface(&image_surface.unwrap(), 0.0, 0.0)?;
@@ -413,7 +413,7 @@ impl Pos2 {
 
 impl Data {
     pub fn painter(
-        self,
+        &self,
         output_mode: &OutputMode,
         width: f64,
         height: f64,
@@ -441,7 +441,7 @@ impl Data {
         }
         let mut layout1 = self.global_style.layouter(&painter.pango_context1);
         let mut layout2 = self.global_style.layouter(&painter.pango_context2);
-        for item in self.items {
+        for item in &self.items {
             let vertical: bool;
             match &item.style {
                 None => {

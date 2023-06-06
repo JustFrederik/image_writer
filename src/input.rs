@@ -1,5 +1,4 @@
 use image::codecs::pnm::PnmSubtype;
-use pyo3::prelude::pyclass;
 /// Main Item that contains the data
 pub struct Data {
     /// Text block
@@ -70,7 +69,6 @@ pub enum Mode {
 
 #[derive(Default)]
 /// Read direction of text
-#[pyclass]
 pub enum ReadDirection {
     /// A strong left-to-right direction.
     LR,

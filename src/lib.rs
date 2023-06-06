@@ -10,8 +10,8 @@ mod testing {
         Alignments, Background, Data, Font, HorizontalAlignment, Mode, OutputMode, Pos2,
         ReadDirection, Rgb, Rgba, Size2, Styling, Text, VerticalAlignment, Wrap,
     };
-    use std::fs::File;
     use crate::save::{output, OutputError};
+    use std::fs::File;
 
     #[test]
     fn test1() {
@@ -58,26 +58,24 @@ mod testing {
         };
         let painter = data.painter(OutputMode::Svg, 1518., 2150.).unwrap();
         let mut file = File::create("test.svg").unwrap();
-        match output(OutputMode::Pdf(false), "".into(), painter){
+        match output(OutputMode::Pdf(false), "".into(), painter) {
             Ok(v) => {
                 //TODO: add to output
             }
-            Err(e) => {
-                match e {
-                    OutputError::Custom(v) => {
-                        println!("Error: {}", v);
-                    }
-                    OutputError::Io(e) => {
-                        println!("Io Error: {}", e);
-                    }
-                    OutputError::ImageError(e) => {
-                        println!("Image Error: {}", e);
-                    }
-                    OutputError::CompressionError(e) => {
-                        println!("Compression Error: {}", e);
-                    }
+            Err(e) => match e {
+                OutputError::Custom(v) => {
+                    println!("Error: {}", v);
                 }
-            }
+                OutputError::Io(e) => {
+                    println!("Io Error: {}", e);
+                }
+                OutputError::ImageError(e) => {
+                    println!("Image Error: {}", e);
+                }
+                OutputError::CompressionError(e) => {
+                    println!("Compression Error: {}", e);
+                }
+            },
         }
     }
 }
