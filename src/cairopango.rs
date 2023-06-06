@@ -414,7 +414,7 @@ impl Pos2 {
 impl Data {
     pub fn painter(
         self,
-        output_mode: OutputMode,
+        output_mode: &OutputMode,
         width: f64,
         height: f64,
     ) -> Result<Painter, cairo_rs::Error> {
