@@ -1,8 +1,8 @@
 #![allow(dead_code)]
-mod cairopango;
-mod input;
-mod merge_pdf;
-mod save;
+pub mod cairopango;
+pub mod input;
+pub mod merge_pdf;
+pub mod save;
 
 #[cfg(test)]
 mod testing {

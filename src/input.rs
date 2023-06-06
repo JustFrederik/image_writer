@@ -43,9 +43,9 @@ pub struct Text {
     /// Alternative alignment for text section
     pub align: Option<Alignments>,
     /// the color of the outline
-    pub(crate) outline_color: Rgba,
+    pub outline_color: Rgba,
     /// The thickness of the outline/stroke/shadow...
-    pub(crate) font_stroke: f64,
+    pub font_stroke: f64,
 }
 
 /// background of text box
@@ -223,15 +223,15 @@ pub enum OutputMode {
 /// font configuration
 pub struct Font {
     /// font
-    pub(crate) font_family: String,
+    pub font_family: String,
     /// caps
-    pub(crate) variant: FontVariant,
+    pub variant: FontVariant,
     /// char spacing
-    pub(crate) stretch: FontStretch,
+    pub stretch: FontStretch,
     /// bold, normal, light
-    pub(crate) weight: FontWeight,
+    pub weight: FontWeight,
     /// italic, oblique, normal
-    pub(crate) style: FontStyle,
+    pub style: FontStyle,
 }
 
 #[derive(Default)]

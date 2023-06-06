@@ -394,7 +394,7 @@ impl ReadDirection {
 }
 
 impl Size2 {
-    pub(crate) fn new(width: f64, height: f64) -> Size2 {
+    pub fn new(width: f64, height: f64) -> Size2 {
         Size2 { width, height }
     }
 }
@@ -406,7 +406,7 @@ impl Rgba {
 }
 
 impl Pos2 {
-    pub(crate) fn new(x: f64, y: f64) -> Pos2 {
+    pub fn new(x: f64, y: f64) -> Pos2 {
         Pos2 { x, y }
     }
 }
