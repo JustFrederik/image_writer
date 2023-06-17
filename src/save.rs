@@ -29,25 +29,29 @@ pub fn output(
     output_format: OutputMode,
     filename: PathBuf,
     f: Painter,
+    add_ext: bool
 ) -> Result<Option<Vec<u8>>, OutputError> {
-    let filepath = match output_format {
-        OutputMode::Pdf(_) => add_ending(filename, "pdf"),
-        OutputMode::Png(_) => add_ending(filename, "png"),
-        OutputMode::Svg => add_ending(filename, "svg"),
-        OutputMode::Ps => add_ending(filename, "ps"),
-        OutputMode::Jpeg(_) => add_ending(filename, "jpeg"),
-        OutputMode::Pnm(_) => add_ending(filename, "pnm"),
-        OutputMode::Ico => add_ending(filename, "ico"),
-        OutputMode::Bmp => add_ending(filename, "bmp"),
-        OutputMode::Farbfeld => add_ending(filename, "farbfeld"),
-        OutputMode::Tga => add_ending(filename, "tga"),
-        OutputMode::OpenExr => add_ending(filename, "openexr"),
-        OutputMode::Tiff => add_ending(filename, "tiff"),
-        OutputMode::Avif => add_ending(filename, "avif"),
-        OutputMode::Qoi => add_ending(filename, "qoi"),
-        OutputMode::WebP => add_ending(filename, "webp"),
-    }
-    .map_err(OutputError::Custom)?;
+    let filepath = match add_ext {
+        true => match output_format {
+            OutputMode::Pdf(_) => add_ending(filename, "pdf"),
+            OutputMode::Png(_) => add_ending(filename, "png"),
+            OutputMode::Svg => add_ending(filename, "svg"),
+            OutputMode::Ps => add_ending(filename, "ps"),
+            OutputMode::Jpeg(_) => add_ending(filename, "jpeg"),
+            OutputMode::Pnm(_) => add_ending(filename, "pnm"),
+            OutputMode::Ico => add_ending(filename, "ico"),
+            OutputMode::Bmp => add_ending(filename, "bmp"),
+            OutputMode::Farbfeld => add_ending(filename, "farbfeld"),
+            OutputMode::Tga => add_ending(filename, "tga"),
+            OutputMode::OpenExr => add_ending(filename, "openexr"),
+            OutputMode::Tiff => add_ending(filename, "tiff"),
+            OutputMode::Avif => add_ending(filename, "avif"),
+            OutputMode::Qoi => add_ending(filename, "qoi"),
+            OutputMode::WebP => add_ending(filename, "webp"),
+        },
+        false => Ok(filename),
+    }.map_err(OutputError::Custom)?;
+
     let mut file = File::create(filepath).map_err(OutputError::Io)?;
 
     if output_format == OutputMode::Svg
